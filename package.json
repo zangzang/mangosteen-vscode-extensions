@@ -1,0 +1,104 @@
+{
+  "name": "json-model-generator",
+  "displayName": "JSON Model Generator",
+  "description": "Generate model/entity classes from JSON schema files",
+  "version": "0.0.1",
+  "publisher": "JangJongWoo",
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zangzang/mangosteen-vscode-extensions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zangzang/mangosteen-vscode-extensions/issues"
+  },
+  "homepage": "https://github.com/zangzang/mangosteen-vscode-extensions",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.generateModel",
+        "title": "Generate Model"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "resourceExtname == .json",
+          "command": "extension.generateModel",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceExtname == .json",
+          "command": "extension.generateModel",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "JSON Model Generator",
+      "properties": {
+        "jsonModelGenerator.default.command": {
+          "type": "string",
+          "description": "기본 quicktype 실행 명령어"
+        },
+        "jsonModelGenerator.csharp.command": {
+          "type": "string",
+          "description": "C# 모델 생성을 위한 quicktype 명령어 (설정하지 않으면 기본 명령어 사용)"
+        },
+        "jsonModelGenerator.typescript.command": {
+          "type": "string",
+          "description": "TypeScript 모델 생성을 위한 quicktype 명령어"
+        },
+        "jsonModelGenerator.java.command": {
+          "type": "string",
+          "description": "Java 모델 생성을 위한 quicktype 명령어"
+        },
+        "jsonModelGenerator.python.command": {
+          "type": "string",
+          "description": "Python 모델 생성을 위한 quicktype 명령어"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "yarn run check-types && yarn run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "yarn run check-types && yarn run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.99.0",
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "esbuild": "^0.25.1",
+    "eslint": "^9.23.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "generate-model-from-json-schema": "file:"
+  }
+}
