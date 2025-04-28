@@ -58,4 +58,10 @@ JSON 스키마 파일로부터 다양한 프로그래밍 언어의 모델/엔티
 - [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
-**즐겁게 사용하세요!**
+## Third-party Libraries
+
+이 확장 프로그램은 다음 오픈 소스 라이브러리를 사용합니다:
+
+- [Quicktype](https://quicktype.io/) - Apache-2.0 라이센스
+  - JSON 스키마에서 다양한 프로그래밍 언어로 타입 정의를 생성하는 데 사용됩니다.
+  - [Quicktype GitHub Repository](https://github.com/quicktype/quicktype)
