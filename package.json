@@ -4,8 +4,17 @@
   "description": "Generate model/entity classes from JSON schema files",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.99.0"
+    "vscode": "^1.80.0"
   },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zangzang/mangosteen-vscode-extensions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zangzang/mangosteen-vscode-extensions/issues"
+  },
+  "homepage": "https://github.com/zangzang/mangosteen-vscode-extensions",
   "categories": [
     "Other"
   ],
