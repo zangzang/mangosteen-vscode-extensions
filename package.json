@@ -3,8 +3,10 @@
   "displayName": "JSON Model Generator",
   "description": "Generate model/entity classes from JSON schema files",
   "version": "0.0.1",
+  "publisher": "JangJongWoo",
+  "icon": "images/icon.png",
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.99.0"
   },
   "license": "MIT",
   "repository": {
@@ -18,8 +20,7 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-  ],
+  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
