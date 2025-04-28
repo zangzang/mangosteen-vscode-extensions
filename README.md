@@ -48,7 +48,7 @@ JSON 스키마 파일로부터 다양한 프로그래밍 언어의 모델/엔티
 
 ## Following extension guidelines
 
-이 확장은 Visual Studio Code 확장 가이드라인을 따릅니다.
+- 이 확장은 Visual Studio Code 확장 가이드라인을 따릅니다.
 
 * [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
 
@@ -60,7 +60,7 @@ JSON 스키마 파일로부터 다양한 프로그래밍 언어의 모델/엔티
 
 ## Third-party Libraries
 
-이 확장 프로그램은 다음 오픈 소스 라이브러리를 사용합니다:
+- 이 확장 프로그램은 다음 오픈 소스 라이브러리를 사용합니다:
 
 - [Quicktype](https://quicktype.io/) - Apache-2.0 라이센스
   - JSON 스키마에서 다양한 프로그래밍 언어로 타입 정의를 생성하는 데 사용됩니다.
