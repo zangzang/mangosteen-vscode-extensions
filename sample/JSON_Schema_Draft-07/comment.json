@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Comment",
+  "description": "게시글 댓글을 나타내는 스키마",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "댓글 고유 식별자"
+    },
+    "postId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "댓글이 달린 게시글 ID"
+    },
+    "content": {
+      "type": "string",
+      "minLength": 1,
+      "description": "댓글 내용"
+    },
+    "authorId": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "댓글 작성자 ID (회원인 경우)"
+    },
+    "guestName": {
+      "type": ["string", "null"],
+      "minLength": 2,
+      "maxLength": 30,
+      "description": "비회원 작성자 이름"
+    },
+    "guestPassword": {
+      "type": ["string", "null"],
+      "description": "비회원 댓글인 경우 비밀번호 (해시 처리됨)"
+    },
+    "parentId": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "부모 댓글 ID (대댓글인 경우)"
+    },
+    "depth": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "description": "댓글 깊이 (원댓글은 0, 대댓글은 1 이상)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "HIDDEN", "DELETED", "REPORTED"],
+      "default": "ACTIVE",
+      "description": "댓글 상태"
+    },
+    "likeCount": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "description": "좋아요수"
+    },
+    "ipAddress": {
+      "type": ["string", "null"],
+      "format": "ipv4",
+      "description": "작성자 IP 주소 (관리 목적)"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "댓글 작성 시간"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "댓글 최종 수정 시간"
+    },
+    "isEdited": {
+      "type": "boolean",
+      "default": false,
+      "description": "수정 여부"
+    }
+  },
+  "required": ["id", "postId", "content", "status", "createdAt", "updatedAt"],
+  "oneOf": [
+    {
+      "required": ["authorId"]
+    },
+    {
+      "required": ["guestName", "guestPassword"]
+    }
+  ]
+}

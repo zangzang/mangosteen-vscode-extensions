@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Customer",
+  "description": "고객 정보 모델",
+  "type": "object",
+  "properties": {
+    "customer_id": {
+      "type": "integer",
+      "description": "고객 고유 ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "고객 이름"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "고객 이메일 주소"
+    },
+    "phone_number": {
+      "type": "string",
+      "description": "고객 전화번호"
+    }
+  },
+  "required": ["customer_id", "name", "email"]
+}

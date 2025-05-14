@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Post",
+  "description": "게시판 게시글을 나타내는 스키마",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "게시글 고유 식별자"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "게시글 제목"
+    },
+    "content": {
+      "type": "string",
+      "description": "게시글 본문 내용"
+    },
+    "categoryId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "게시글이 속한 카테고리 ID"
+    },
+    "authorId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "게시글 작성자 ID"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["DRAFT", "PUBLISHED", "HIDDEN", "DELETED"],
+      "default": "PUBLISHED",
+      "description": "게시글 상태"
+    },
+    "viewCount": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "description": "조회수"
+    },
+    "likeCount": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "description": "좋아요수"
+    },
+    "commentCount": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "description": "댓글수"
+    },
+    "isPinned": {
+      "type": "boolean",
+      "default": false,
+      "description": "상단 고정 여부"
+    },
+    "isNotice": {
+      "type": "boolean",
+      "default": false,
+      "description": "공지사항 여부"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "게시글 태그 목록"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "게시글 작성 시간"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "게시글 최종 수정 시간"
+    },
+    "publishedAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "게시글 공개 시간"
+    },
+    "lastCommentAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "마지막 댓글 작성 시간"
+    },
+    "password": {
+      "type": ["string", "null"],
+      "description": "비회원 게시글인 경우 비밀번호 (해시 처리됨)"
+    },
+    "ipAddress": {
+      "type": ["string", "null"],
+      "format": "ipv4",
+      "description": "작성자 IP 주소 (관리 목적)"
+    },
+    "allowComments": {
+      "type": "boolean",
+      "default": true,
+      "description": "댓글 허용 여부"
+    }
+  },
+  "required": ["id", "title", "content", "categoryId", "authorId", "status", "createdAt", "updatedAt"]
+}

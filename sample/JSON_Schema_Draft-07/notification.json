@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Notification",
+  "description": "사용자 알림을 나타내는 스키마",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "알림 고유 식별자"
+    },
+    "userId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "알림을 받는 사용자 ID"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["COMMENT", "REPLY", "MENTION", "LIKE", "ADMIN", "SYSTEM"],
+      "description": "알림 유형"
+    },
+    "title": {
+      "type": "string",
+      "description": "알림 제목"
+    },
+    "content": {
+      "type": "string",
+      "description": "알림 내용"
+    },
+    "sourceId": {
+      "type": ["string", "null"],
+      "description": "알림 출처 ID (게시글 ID, 댓글 ID 등)"
+    },
+    "sourceType": {
+      "type": ["string", "null"],
+      "enum": ["POST", "COMMENT", "USER", "SYSTEM", null],
+      "description": "알림 출처 유형"
+    },
+    "link": {
+      "type": ["string", "null"],
+      "format": "uri-reference",
+      "description": "알림 클릭 시 이동할 링크"
+    },
+    "isRead": {
+      "type": "boolean",
+      "default": false,
+      "description": "읽음 여부"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "알림 생성 시간"
+    },
+    "readAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "알림 읽은 시간"
+    },
+    "expireAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "알림 만료 시간"
+    }
+  },
+  "required": ["id", "userId", "type", "title", "content", "isRead", "createdAt"]
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Order",
+  "description": "주문 정보 모델",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "string",
+      "description": "주문 고유 ID"
+    },
+    "customer_info": {
+      "$ref": "customer.schema.json",
+      "description": "고객 정보 참조"
+    },
+    "order_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "주문 날짜 및 시간"
+    },
+    "total_amount": {
+      "type": "number",
+      "description": "총 주문 금액"
+    },
+    "order_items": {
+      "type": "array",
+      "items": {
+        "$ref": "order_item.schema.json"
+      },
+      "description": "주문 아이템 목록"
+    },
+    "shipping_address": {
+      "$ref": "address.schema.json",
+      "description": "배송 주소 참조"
+    },
+    "billing_address": {
+      "$ref": "address.schema.json",
+      "description": "청구지 주소 참조"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "processing", "shipped", "delivered", "cancelled"],
+      "description": "주문 상태"
+    }
+  },
+  "required": [
+    "order_id",
+    "customer_info",
+    "order_date",
+    "total_amount",
+    "order_items",
+    "shipping_address",
+    "billing_address",
+    "status"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OrderItem",
+  "description": "주문 아이템 모델",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "description": "상품 고유 ID"
+    },
+    "product_name": {
+      "type": "string",
+      "description": "상품 이름"
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "주문 수량"
+    },
+    "unit_price": {
+      "type": "number",
+      "description": "개당 가격"
+    },
+    "total_price": {
+      "type": "number",
+      "description": "총 가격 (수량 * 개당 가격)"
+    }
+  },
+  "required": [
+    "product_id",
+    "product_name",
+    "quantity",
+    "unit_price",
+    "total_price"
+  ]
+}

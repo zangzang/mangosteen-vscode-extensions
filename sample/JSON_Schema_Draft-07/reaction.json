@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reaction",
+  "description": "게시글/댓글 리액션(좋아요 등)을 나타내는 스키마",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "리액션 고유 식별자"
+    },
+    "userId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "리액션을 한 사용자 ID"
+    },
+    "targetId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "리액션 대상 ID (게시글 ID 또는 댓글 ID)"
+    },
+    "targetType": {
+      "type": "string",
+      "enum": ["POST", "COMMENT"],
+      "description": "리액션 대상 유형"
+    },
+    "type": {
+      "type": "string",
+      "description": "리액션 유형 (like, heart, laugh 등)"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "리액션 생성 시간"
+    },
+    "ipAddress": {
+      "type": ["string", "null"],
+      "format": "ipv4",
+      "description": "사용자 IP 주소 (관리 목적)"
+    }
+  },
+  "required": ["id", "userId", "targetId", "targetType", "type", "createdAt"]
+}

@@ -3,3 +3,20 @@ dist
 node_modules
 .vscode-test/
 *.vsix
+
+# sample 디렉토리 내에서 특정 확장자 파일 무시
+/sample/**/*.java
+/sample/**/*.cs
+/sample/**/*.py
+/sample/**/*.ts
+/sample/**/*.js
+/sample/**/*.jsx
+/sample/**/*.tsx
+/sample/**/*.go
+/sample/**/*.kt
+/sample/**/*.swift
+/sample/**/*.rb
+/sample/**/*.php
+/sample/**/*.cpp
+/sample/**/*.c
+/sample/**/*.h

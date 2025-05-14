@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PostView",
+  "description": "게시글 조회 기록을 나타내는 스키마",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "조회 기록 고유 식별자"
+    },
+    "postId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "조회한 게시글 ID"
+    },
+    "userId": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "조회한 사용자 ID (회원인 경우)"
+    },
+    "ipAddress": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "조회자 IP 주소"
+    },
+    "userAgent": {
+      "type": ["string", "null"],
+      "description": "조회자 브라우저/기기 정보"
+    },
+    "referer": {
+      "type": ["string", "null"],
+      "format": "uri-reference",
+      "description": "유입 경로 URL"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "조회 시간"
+    }
+  },
+  "required": ["id", "postId", "ipAddress", "createdAt"]
+}

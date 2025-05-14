@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "User",
+  "description": "사용자 정보를 나타내는 스키마",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "사용자 고유 식별자"
+    },
+    "username": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 20,
+      "description": "사용자 로그인 아이디"
+    },
+    "password": {
+      "type": "string",
+      "minLength": 8,
+      "description": "사용자 비밀번호 (해시 처리됨)"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "사용자 이메일 주소"
+    },
+    "nickname": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 30,
+      "description": "사용자 닉네임"
+    },
+    "profileImage": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "프로필 이미지 URL"
+    },
+    "role": {
+      "type": "string",
+      "enum": ["USER", "ADMIN", "MODERATOR"],
+      "default": "USER",
+      "description": "사용자 권한 등급"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "INACTIVE", "BLOCKED", "DELETED"],
+      "default": "ACTIVE",
+      "description": "사용자 계정 상태"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "계정 생성 시간"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "계정 정보 최종 수정 시간"
+    },
+    "lastLoginAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "마지막 로그인 시간"
+    }
+  },
+  "required": ["id", "username", "password", "email", "nickname", "role", "status", "createdAt", "updatedAt"]
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Scrap",
+  "description": "게시글 스크랩을 나타내는 스키마",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "스크랩 고유 식별자"
+    },
+    "userId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "스크랩한 사용자 ID"
+    },
+    "postId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "스크랩한 게시글 ID"
+    },
+    "folderName": {
+      "type": ["string", "null"],
+      "description": "스크랩 폴더명"
+    },
+    "memo": {
+      "type": ["string", "null"],
+      "description": "스크랩 메모"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "스크랩 생성 시간"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "스크랩 수정 시간"
+    }
+  },
+  "required": ["id", "userId", "postId", "createdAt", "updatedAt"]
+}

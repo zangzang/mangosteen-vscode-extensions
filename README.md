@@ -65,3 +65,32 @@ JSON 스키마 파일로부터 다양한 프로그래밍 언어의 모델/엔티
 - [Quicktype](https://quicktype.io/) - Apache-2.0 라이센스
   - JSON 스키마에서 다양한 프로그래밍 언어로 타입 정의를 생성하는 데 사용됩니다.
   - [Quicktype GitHub Repository](https://github.com/quicktype/quicktype)
+
+## 개발 관련
+
+- [개발 및 배포 가이드 보기](./DEVELOPMENT.md)
+
+### esbuild watch 작업 오류 해결
+
+VS Code에서 `npm: watch:esbuild` 작업 실행 시 아래와 같은 오류가 발생할 수 있습니다.
+
+```
+오류: 잘못된 problemMatcher 참조: $esbuild-watch
+```
+
+이 오류는 `tasks.json`에서 `$esbuild-watch` problemMatcher가 등록되어 있지 않아 발생합니다.  
+해결 방법:
+
+- esbuild 관련 VS Code 확장 프로그램을 설치하거나,
+- `tasks.json`에서 problemMatcher를 제거하거나, 지원되는 problemMatcher(예: `$tsc`, `$eslint-stylish`)로 변경하세요.
+
+예시:
+```json
+// .vscode/tasks.json
+{
+  "label": "watch:esbuild",
+  "type": "npm",
+  "script": "watch:esbuild",
+  "problemMatcher": []
+}
+```

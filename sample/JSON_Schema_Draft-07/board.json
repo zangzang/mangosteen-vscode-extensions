@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Board",
+  "description": "게시판 설정을 나타내는 스키마",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "게시판 고유 식별자"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "게시판 이름"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "maxLength": 500,
+      "description": "게시판 설명"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "URL에 사용되는 게시판 식별자"
+    },
+    "skin": {
+      "type": "string",
+      "default": "default",
+      "description": "게시판 스킨/테마"
+    },
+    "postsPerPage": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 20,
+      "description": "페이지당 게시글 수"
+    },
+    "allowAnonymous": {
+      "type": "boolean",
+      "default": false,
+      "description": "비회원 글쓰기 허용 여부"
+    },
+    "allowComments": {
+      "type": "boolean",
+      "default": true,
+      "description": "댓글 기능 사용 여부"
+    },
+    "allowAttachments": {
+      "type": "boolean",
+      "default": true,
+      "description": "첨부파일 허용 여부"
+    },
+    "maxAttachmentSize": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 10485760,
+      "description": "최대 첨부파일 크기 (바이트, 기본 10MB)"
+    },
+    "maxAttachmentsCount": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 5,
+      "description": "최대 첨부파일 개수"
+    },
+    "useCategory": {
+      "type": "boolean",
+      "default": false,
+      "description": "카테고리 사용 여부"
+    },
+    "defaultCategoryId": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "기본 카테고리 ID"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "description": "게시판 활성화 여부"
+    },
+    "minRoleToRead": {
+      "type": "string",
+      "enum": ["GUEST", "USER", "MODERATOR", "ADMIN"],
+      "default": "GUEST",
+      "description": "읽기에 필요한 최소 사용자 등급"
+    },
+    "minRoleToWrite": {
+      "type": "string",
+      "enum": ["USER", "MODERATOR", "ADMIN"],
+      "default": "USER",
+      "description": "글쓰기에 필요한 최소 사용자 등급"
+    },
+    "minRoleToComment": {
+      "type": "string",
+      "enum": ["GUEST", "USER", "MODERATOR", "ADMIN"],
+      "default": "USER",
+      "description": "댓글 작성에 필요한 최소 사용자 등급"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "게시판 생성 시간"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "게시판 설정 최종 수정 시간"
+    },
+    "createdBy": {
+      "type": "string",
+      "format": "uuid",
+      "description": "게시판 생성자 ID"
+    },
+    "useTags": {
+      "type": "boolean",
+      "default": false,
+      "description": "태그 기능 사용 여부"
+    },
+    "useReactions": {
+      "type": "boolean",
+      "default": true,
+      "description": "좋아요/리액션 기능 사용 여부"
+    },
+    "reactionTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": ["like"],
+      "description": "사용 가능한 리액션 유형"
+    }
+  },
+  "required": ["id", "name", "slug", "postsPerPage", "isActive", "minRoleToRead", "minRoleToWrite", "createdAt", "updatedAt", "createdBy"]
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Category",
+  "description": "게시판 카테고리를 나타내는 스키마",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "카테고리 고유 식별자"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "description": "카테고리 이름"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "maxLength": 200,
+      "description": "카테고리 설명"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "URL에 사용되는 카테고리 식별자"
+    },
+    "parentId": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "부모 카테고리 ID (최상위 카테고리인 경우 null)"
+    },
+    "displayOrder": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "카테고리 표시 순서"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "description": "카테고리 활성화 여부"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "카테고리 생성 시간"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "카테고리 정보 최종 수정 시간"
+    },
+    "createdBy": {
+      "type": "string",
+      "format": "uuid",
+      "description": "카테고리를 생성한 사용자의 ID"
+    },
+    "requiresAuth": {
+      "type": "boolean",
+      "default": false,
+      "description": "카테고리 접근에 인증이 필요한지 여부"
+    },
+    "minRoleToWrite": {
+      "type": "string",
+      "enum": ["USER", "MODERATOR", "ADMIN"],
+      "default": "USER",
+      "description": "글 작성에 필요한 최소 사용자 등급"
+    }
+  },
+  "required": ["id", "name", "slug", "displayOrder", "isActive", "createdAt", "updatedAt", "createdBy"]
+}
