@@ -4,10 +4,17 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as cp from 'child_process';
 
-import { SUPPORTED_LANGUAGES, getLanguageSpecificOptions, getQuicktypeLanguage, getModelFileName  } from './languageSpecificOptions';
+import { SUPPORTED_LANGUAGES, getLanguageSpecificOptions, getQuicktypeLanguage, getModelFileName  } from './options/languageSpecificOptions';
+
+// 출력 채널 생성
+let outputChannel: vscode.OutputChannel;
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('JSON Model Generator Extension is now active');
+
+  // 출력 채널 초기화
+  outputChannel = vscode.window.createOutputChannel('JSON Model Generator');
+  context.subscriptions.push(outputChannel);
 
   // Explorer 컨텍스트 메뉴에 "Generate Model" 명령 등록
   let generateModelCommand = vscode.commands.registerCommand(
@@ -69,29 +76,53 @@ async function generateModelForLanguage(jsonUri: vscode.Uri, language: string) {
   const outputDir = path.dirname(jsonFilePath);
   const outputPath = path.join(outputDir, modelFileName);
 
-  try {
-    // 언어별 옵션 가져오기
-    const languageOptions = await getLanguageSpecificOptions(language);
+  // 출력 채널 표시
+  outputChannel.clear();
+  outputChannel.show(true); // true: 출력 채널에 포커스를 맞춥니다.
+  outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Generating ${language} model from ${jsonFileName}...`);
 
-    const result = await runModelGenerator(jsonFilePath, outputPath, language, languageOptions);
+  // 프로그레스 표시기로 진행 상황 표시
+  return vscode.window.withProgress({
+    location: vscode.ProgressLocation.Notification,
+    title: `Generating ${language} model`,
+    cancellable: false
+  }, async (progress) => {
+    progress.report({ increment: 0, message: "Starting..." });
 
-    if (result.success) {
-      if (!fs.existsSync(outputPath)) {
-        vscode.window.showWarningMessage(`File not found: ${outputPath}, generation may have failed.`);
-        return;
+    try {
+      // 언어별 옵션 가져오기
+      outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Getting language options for ${language}...`);
+      progress.report({ increment: 20, message: "Getting language options..." });
+      const languageOptions = await getLanguageSpecificOptions(language, jsonFilePath);
+
+      outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Running model generator...`);
+      progress.report({ increment: 40, message: "Running generator..." });
+      const result = await runModelGenerator(jsonFilePath, outputPath, language, languageOptions);
+
+      progress.report({ increment: 80, message: "Finishing..." });
+      
+      if (result.success) {
+        if (!fs.existsSync(outputPath)) {
+          outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Warning: File not found - ${outputPath}`);
+          vscode.window.showWarningMessage(`File not found: ${outputPath}, generation may have failed.`);
+          return;
+        }
+
+        outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Success: Model generated at ${outputPath}`);
+        progress.report({ increment: 100, message: "Done!" });
+        vscode.window.showInformationMessage(`Model generated successfully: ${modelFileName}`);
+        const doc = await vscode.workspace.openTextDocument(outputPath);
+        await vscode.window.showTextDocument(doc);
+      } else {
+        outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Error: ${result.error}`);
+        vscode.window.showErrorMessage(`Failed to generate model: ${result.error}`);
       }
-
-      vscode.window.showInformationMessage(`Model generated successfully: ${modelFileName}`);
-      const doc = await vscode.workspace.openTextDocument(outputPath);
-      await vscode.window.showTextDocument(doc);
-    } else {
-      vscode.window.showErrorMessage(`Failed to generate model: ${result.error}`);
+    } catch (error) {
+      outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Error: ${error instanceof Error ? error.message : String(error)}`);
+      vscode.window.showErrorMessage(`Error generating model: ${error instanceof Error ? error.message : String(error)}`);
     }
-  } catch (error) {
-    vscode.window.showErrorMessage(`Error generating model: ${error instanceof Error ? error.message : String(error)}`);
-  }
+  });
 }
-
 
 // 외부 프로세스 실행하여 모델 생성
 // quicktype을 사용하여 JSON 스키마를 변환
@@ -102,8 +133,7 @@ async function runModelGenerator(
   options: { [key: string]: string }
 ): Promise<{ success: boolean; error?: string }> {
   return new Promise((resolve) => {
-    try {
-      const config = vscode.workspace.getConfiguration('jsonModelGenerator');
+    try {      const config = vscode.workspace.getConfiguration('jsonModelGenerator');
       const langCode = getQuicktypeLanguage(language);
       const langSettingKey = `${langCode}.command`;
       const quicktypeBaseCommand = config.get(langSettingKey) || config.get('quicktypeCommand', 'npx quicktype');
@@ -117,22 +147,34 @@ async function runModelGenerator(
       for (const [key, value] of Object.entries(options)) {
         if (value === '') {
           // 값이 빈 문자열인 경우 키만 추가
-          quicktypeCommand += ` --${key}`;
+          quicktypeCommand += ` ${key}`;
         } else {
           // 값이 있는 경우 키와 값을 함께 추가
-          quicktypeCommand += ` --${key} ${value}`;
+          quicktypeCommand += ` ${key} ${value}`;
         }
       }
 
-      console.log(`Running command: ${quicktypeCommand}!!`);
+      outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Running command: ${quicktypeCommand}`);
+      outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Working directory: ${path.dirname(jsonFilePath)}`);
+      
       cp.exec(quicktypeCommand, { cwd: path.dirname(jsonFilePath) }, (error, stdout, stderr) => {
+        if (stdout) {
+          outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Output:\n${stdout}`);
+        }
+        
         if (error) {
+          outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Error: ${error.message}`);
+          if (stderr) {
+            outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Error details:\n${stderr}`);
+          }
           resolve({ success: false, error: stderr || error.message });
         } else {
+          outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Command executed successfully`);
           resolve({ success: true });
         }
       });
     } catch (error) {
+      outputChannel.appendLine(`[${new Date().toLocaleTimeString()}] Error: ${error instanceof Error ? error.message : String(error)}`);
       resolve({
         success: false,
         error: error instanceof Error ? error.message : String(error),

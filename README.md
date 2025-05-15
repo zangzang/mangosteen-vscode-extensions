@@ -16,6 +16,19 @@ JSON 스키마 파일로부터 다양한 프로그래밍 언어의 모델/엔티
   - `npx quicktype` 명령어를 사용하므로 Node.js가 설치되어 있어야 합니다.
 - Visual Studio Code 1.99.0 이상
 
+## Installation
+
+1. VS Code의 확장 마켓플레이스에서 "JSON Model Generator" 검색
+2. 설치 버튼 클릭
+3. VS Code 재시작 (필요한 경우)
+
+## Usage
+
+1. JSON 스키마 파일을 마우스 오른쪽 버튼으로 클릭하고 **"Generate Model"** 명령을 선택합니다.
+2. 대상 프로그래밍 언어를 선택합니다.
+3. 언어별로 필요한 추가 옵션을 입력합니다.
+4. 생성된 모델 파일이 자동으로 열립니다.
+
 ## Extension Settings
 
 이 확장은 다음 설정을 제공합니다:
@@ -26,71 +39,20 @@ JSON 스키마 파일로부터 다양한 프로그래밍 언어의 모델/엔티
 - `jsonModelGenerator.java.command`: Java 모델 생성을 위한 quicktype 명령어
 - `jsonModelGenerator.python.command`: Python 모델 생성을 위한 quicktype 명령어
 
-## Usage
-
-1. JSON 스키마 파일을 마우스 오른쪽 버튼으로 클릭하고 **"Generate Model"** 명령을 선택합니다.
-2. 대상 프로그래밍 언어를 선택합니다.
-3. 언어별로 필요한 추가 옵션을 입력합니다.
-4. 생성된 모델 파일이 자동으로 열립니다.
-
 ## Known Issues
 
 - Quicktype 명령어가 올바르게 설정되지 않은 경우 모델 생성이 실패할 수 있습니다.
 - 지원되지 않는 언어를 선택하면 오류가 발생합니다.
 
-## Release Notes
-
-### 0.0.1
-
-- 초기 릴리스: JSON 스키마를 기반으로 모델 생성 기능 추가
-
----
-
-## Following extension guidelines
-
-- 이 확장은 Visual Studio Code 확장 가이드라인을 따릅니다.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## For more information
-
-- [Quicktype 공식 문서](https://quicktype.io/)
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
 ## Third-party Libraries
-
-- 이 확장 프로그램은 다음 오픈 소스 라이브러리를 사용합니다:
 
 - [Quicktype](https://quicktype.io/) - Apache-2.0 라이센스
   - JSON 스키마에서 다양한 프로그래밍 언어로 타입 정의를 생성하는 데 사용됩니다.
   - [Quicktype GitHub Repository](https://github.com/quicktype/quicktype)
 
-## 개발 관련
+## 추가 정보
 
-- [개발 및 배포 가이드 보기](./DEVELOPMENT.md)
-
-### esbuild watch 작업 오류 해결
-
-VS Code에서 `npm: watch:esbuild` 작업 실행 시 아래와 같은 오류가 발생할 수 있습니다.
-
-```
-오류: 잘못된 problemMatcher 참조: $esbuild-watch
-```
-
-이 오류는 `tasks.json`에서 `$esbuild-watch` problemMatcher가 등록되어 있지 않아 발생합니다.  
-해결 방법:
-
-- esbuild 관련 VS Code 확장 프로그램을 설치하거나,
-- `tasks.json`에서 problemMatcher를 제거하거나, 지원되는 problemMatcher(예: `$tsc`, `$eslint-stylish`)로 변경하세요.
-
-예시:
-```json
-// .vscode/tasks.json
-{
-  "label": "watch:esbuild",
-  "type": "npm",
-  "script": "watch:esbuild",
-  "problemMatcher": []
-}
-```
+- [개발 및 기여 가이드](./DEVELOPMENT.md)
+- [변경 이력](./CHANGELOG.md)
+- [Quicktype 공식 문서](https://quicktype.io/)
+- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)

@@ -24,8 +24,7 @@
   "main": "./dist/extension.js",
   "files": [
     "quicktype.settings.json",
-    "dist/**/*",
-    "src/quicktype.settings.json"
+    "dist/**/*"
   ],
   "contributes": {
     "commands": [
@@ -83,13 +82,12 @@
     }
   },
   "scripts": {
-    "copy-settings": "npx copyfiles -u 1 src/quicktype.settings.json dist",
-    "package": "yarn check-types && yarn lint && node esbuild.js --production && yarn copy-settings",
     "vscode:prepublish": "yarn package",
     "compile": "yarn check-types && yarn lint && node esbuild.js",
     "watch": "yarn run watch:esbuild & yarn run watch:tsc",
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "yarn check-types && yarn lint && node esbuild.js --production",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "yarn compile-tests && yarn compile && yarn lint",
