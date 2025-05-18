@@ -5,27 +5,20 @@ import * as path from 'path';
 // 설정 파일에서 언어 관련 설정 불러오기
 export function getQuicktypeSettings(language: string): any {
     try {
-        // 사용자 지정 설정 파일 경로 확인
-        const config = vscode.workspace.getConfiguration('jsonModelGenerator');
-        const customSettingsPath = config.get('customSettingsPath') as string;
-        
+        // 설정 파일 경로 설정
         let settingsPath = '';
-        if (customSettingsPath && fs.existsSync(customSettingsPath)) {
-            settingsPath = customSettingsPath;
-        } else {
-            // 디버깅/개발 환경에서는 __dirname 사용
-            const tryPaths = [
-                path.join(__dirname, 'quicktype.settings.json'),
-                path.join(__dirname, 'src', 'quicktype.settings.json'),
-                path.join(process.cwd(), 'quicktype.settings.json'),
-                path.join(process.cwd(), 'src', 'quicktype.settings.json')
-            ];
-            settingsPath = tryPaths.find(p => fs.existsSync(p)) || '';
-        }
+        // 디버깅/개발 환경에서는 __dirname 사용
+        const tryPaths = [
+            path.join(__dirname, 'quicktype.settings.json'),
+            path.join(__dirname, 'src', 'quicktype.settings.json'),
+            path.join(process.cwd(), 'quicktype.settings.json'),
+            path.join(process.cwd(), 'src', 'quicktype.settings.json')
+        ];
+        settingsPath = tryPaths.find(p => fs.existsSync(p)) || '';
         
         // 설정 파일이 없으면 빈 객체 반환
-        if (!fs.existsSync(settingsPath)) {
-            console.warn(`Settings file not found at: ${settingsPath}`);
+        if (!settingsPath || !fs.existsSync(settingsPath)) {
+            console.warn(`Settings file not found at any of the expected locations`);
             return {};
         }
 

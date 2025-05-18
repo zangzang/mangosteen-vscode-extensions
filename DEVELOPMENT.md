@@ -7,6 +7,7 @@
 - [프로젝트 구조](#프로젝트-구조)
 - [빌드 및 테스트](#빌드-및-테스트)
 - [설정 파일 관리](#설정-파일-관리)
+- [내부 동작 및 주요 구현 기능](#내부-동작-및-주요-구현-기능)
 - [배포 프로세스](#배포-프로세스)
 - [기여 가이드](#기여-가이드)
 
@@ -101,6 +102,29 @@ yarn test
 3. 경로 탐색:
    - 개발 환경: `__dirname`과 `process.cwd()`로 자동 탐색
    - 배포 환경: 설치된 확장 경로에서 탐색
+
+## 내부 동작 및 주요 구현 기능
+
+### 1. JSON Data와 JSON Schema 자동 판별
+- 파일명, 경로, 파일 내용의 `$schema` 키 존재 여부로 자동 판별
+  - 예: `*.schema.json` 또는 경로에 `schema` 폴더가 포함되면 우선적으로 스키마로 간주
+  - 파일 내용의 루트에 `$schema` 키가 있으면 JSON Schema, 없으면 일반 JSON Data로 처리
+
+### 2. Java/C#의 패키지명 및 네임스페이스 자동 추출
+- Java: 파일 경로 내 `java` 폴더 이후의 경로를 `.`으로 연결하여 패키지명으로 사용
+  - 예: `/src/schema/java/com/example/user.json` → `com.example`
+- C#: `schema` 폴더 이후의 경로를 파스칼케이스로 변환하여 네임스페이스로 사용
+  - 예: `/src/schema/order/customer.schema.json` → `Order` 네임스페이스
+
+### 3. schema 폴더 위치에 따른 출력 파일 경로 자동 결정
+- Java: `schema/java` 구조를 감지하면, 동일한 위치의 `main/java`로 출력 경로를 자동 변환
+  - 예: `/src/schema/java/com/example/user.json` → `/src/main/java/com/example/`
+- C#: `schema` 폴더를 제외한 경로를 파스칼케이스로 변환하여 출력 디렉토리로 사용
+  - 예: `/src/schema/order/customer.schema.json` → `/src/Order/`
+
+### 4. 언어별 옵션 자동 적용 및 커스텀 입력 지원
+- 각 언어별로 패키지명, 네임스페이스, 배열 타입, 프레임워크 등 옵션을 자동 적용
+- 필요시 사용자 입력을 통해 옵션을 직접 지정 가능
 
 ## 배포 프로세스
 

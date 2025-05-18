@@ -82,7 +82,7 @@ export function getQuicktypeLanguage(language: string): string {
 // 모델 파일 이름 및 확장자 결정
 export function getModelFileName(baseName: string, language: string): string {
   // 파일 이름 케이스 변환 (snake_case -> PascalCase)
-  const className = baseName.replace(/\.schema$/, '')
+  const className = baseName.replace(/\.(schema|data)$/, '')
     .split(/[-_]/)
     .map(part => part.charAt(0).toUpperCase() + part.slice(1))
     .join('');
@@ -141,7 +141,7 @@ export async function getLanguageSpecificOptions(language: string, filePath?: st
     case 'Java':
       return await getJavaOptions(filePath);
     case 'C#':
-      return await getCSharpOptions();
+      return await getCSharpOptions(filePath);
     case 'TypeScript':
       return await getTypeScriptOptions();
     case 'Python':

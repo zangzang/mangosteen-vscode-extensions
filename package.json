@@ -2,7 +2,7 @@
   "name": "json-model-generator",
   "displayName": "JSON Model Generator",
   "description": "Generate model/entity classes from JSON schema files",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "publisher": "JangJongWoo",
   "icon": "images/icon.png",
   "engines": {
@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:zangzang/mangosteen-vscode-extensions.git"
+    "url": "https://github.com/zangzang/mangosteen-vscode-extensions"
   },
   "bugs": {
     "url": "https://github.com/zangzang/mangosteen-vscode-extensions/issues"
