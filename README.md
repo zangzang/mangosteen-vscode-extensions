@@ -11,6 +11,15 @@ Visual Studio Code에서 JSON 스키마 파일로부터 다양한 프로그래�
 - 소스 파일 구조에 맞는 위치에 자동 저장
 - JSON 파일 위치에 따라 패키지명/네임스페이스 자동 인식
 
+## ⚠️ Quicktype 버전 문제 및 권장 버전 안내
+
+Quicktype 최신 버전에서 오류가 발생할 수 있습니다. 만약 모델 생성 중 오류가 발생한다면 아래 명령어로 최신 버전을 제거하고, 안전한 권장 버전(23.2.4)을 설치해 주세요.
+
+```sh
+npm uninstall quicktype -g
+npm install -g quicktype@23.2.4
+```
+
 ## 내부 동작 및 구현 원리
 
 ### 1. JSON Data와 JSON Schema 자동 판별

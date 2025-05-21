@@ -27,8 +27,8 @@ function getCSharpOutputInfo(inputFilePath: string): { outputDir?: string, names
     const normalizedPath = path.normalize(inputFilePath);
     const parts = normalizedPath.split(path.sep);
     
-    // schema 위치 찾기
-    const schemaIdx = parts.findIndex(p => p.toLowerCase() === 'schema');
+    // schema 위치를 끝에서부터 찾기
+    const schemaIdx = parts.findLastIndex(p => p.toLowerCase() === 'schema');
     
     if (schemaIdx === -1) {
         return {}; // schema 폴더가 없으면 빈 객체 반환

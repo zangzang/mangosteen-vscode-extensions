@@ -3,10 +3,21 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { getQuicktypeSettings, getDefaultSettingValue, getSettingEnum, getSettingType } from '../quicktypeSettings';
 
+// 대소문자 무시하고 마지막 인덱스를 찾는 헬퍼 함수
+function lastIndexOfIgnoreCase(parts: string[], target: string): number {
+    for (let i = parts.length - 1; i >= 0; i--) {
+        if (parts[i].toLowerCase() === target.toLowerCase()) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 function getDefaultJavaPackageName(filePath: string): string {
     // 경로를 분할
     const parts = filePath.split(path.sep);
-    const javaIdx = parts.findIndex(p => p.toLowerCase() === 'java');
+    // 'java' 폴더를 끝에서부터 찾음
+    const javaIdx = parts.findLastIndex(p => p.toLowerCase() === 'java');
     if (javaIdx === -1 || javaIdx === parts.length - 1) {
         return '';
     }
@@ -30,9 +41,9 @@ function getJavaOutputDirectory(inputFilePath: string): string | undefined {
     const normalizedPath = path.normalize(inputFilePath);
     const parts = normalizedPath.split(path.sep);
     
-    // schema와 java 위치 찾기
-    const schemaIdx = parts.findIndex(p => p.toLowerCase() === 'schema');
-    const javaIdx = parts.findIndex(p => p.toLowerCase() === 'java');
+    // schema와 java 위치를 끝에서부터 찾기
+    const schemaIdx = parts.findLastIndex(p => p.toLowerCase() === 'schema');
+    const javaIdx = parts.findLastIndex(p => p.toLowerCase() === 'java');
     
     // schema와 java가 모두 경로에 존재하는지 확인
     if (schemaIdx === -1 || javaIdx === -1) {

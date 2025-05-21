@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.0.4] - 2025-05-21
+
+### Changed
+- Quicktype 최신 버전에서 오류가 발생할 수 있어, 안전한 권장 버전(23.2.4) 설치 안내를 README에 추가했습니다.
+- 오류 발생 시 아래 명령어로 최신 버전을 제거하고 권장 버전을 설치하도록 안내:
+  - `npm uninstall quicktype -g`
+  - `npm install -g quicktype@23.2.4`
+
 ## [0.0.3] - 2025-05-18
 
 ### Added
