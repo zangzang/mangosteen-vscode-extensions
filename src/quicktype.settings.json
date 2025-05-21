@@ -1,0 +1,200 @@
+{
+  "java": {
+    "arrayType": {
+      "default": "list",
+      "enum": ["list", "array"],
+      "description": "Use T[] or List<T>",
+      "type": "string"
+    },
+    "justTypes": {
+      "default": false,
+      "description": "Plain types only",
+      "type": "boolean"
+    },
+    "datetimeProvider": {
+      "default": "java8",
+      "enum": ["java8", "legacy"],
+      "description": "Date time provider type",
+      "type": "string"
+    },
+    "acronymStyle": {
+      "default": "original",
+      "enum": ["original", "pascal", "camel", "lowerCase"],
+      "description": "Acronym naming style",
+      "type": "string"
+    },
+    "package": {
+      "default": "com.example.model",
+      "description": "Generated package name",
+      "type": "string"
+    },
+    "lombok": {
+      "default": false,
+      "description": "Use lombok",
+      "type": "boolean"
+    },
+    "lombokCopyAnnotations": {
+      "default": true,
+      "description": "Copy accessor annotations",
+      "type": "boolean"
+    }
+  },
+  "csharp": {
+    "framework": {
+      "default": "SystemTextJson",
+      "enum": ["SystemTextJson", "NewtonSoft"],
+      "description": "Serialization framework",
+      "type": "string"
+    },
+    "namespace": {
+      "default": "Models",
+      "description": "Generated namespace",
+      "type": "string"
+    },
+    "csharpVersion": {
+      "default": "6",
+      "enum": ["6", "5"],
+      "description": "C# version",
+      "type": "string"
+    },
+    "density": {
+      "default": "normal",
+      "enum": ["normal", "dense"],
+      "description": "Property density",
+      "type": "string"
+    },
+    "arrayType": {
+      "default": "list",
+      "enum": ["list", "array"],
+      "description": "Use T[] or List<T>",
+      "type": "string"
+    },
+    "numberType": {
+      "default": "double",
+      "enum": ["double", "decimal"],
+      "description": "Type to use for numbers",
+      "type": "string"
+    },
+    "anyType": {
+      "default": "object",
+      "enum": ["object", "dynamic"],
+      "description": "Type to use for 'any'",
+      "type": "string"
+    },
+    "virtual": {
+      "default": false,
+      "description": "Generate virtual properties",
+      "type": "boolean"
+    },
+    "features": {
+      "default": "complete",
+      "enum": ["complete", "attributes-only", "just-types-and-namespace", "just-types"],
+      "description": "Output features",
+      "type": "string"
+    },
+    "baseClass": {
+      "default": "Object",
+      "enum": ["Object", "EntityData"],
+      "description": "Base class",
+      "type": "string"
+    },
+    "checkRequired": {
+      "default": false,
+      "description": "Fail if required properties are missing",
+      "type": "boolean"
+    },
+    "keepPropertyName": {
+      "default": false,
+      "description": "Keep original field name generate",
+      "type": "boolean"
+    }
+  },
+  "python": {
+    "pythonVersion": {
+      "default": "3.7",
+      "enum": ["3.7", "3.5", "3.6"],
+      "description": "Python version",
+      "type": "string"
+    },
+    "justTypes": {
+      "default": false,
+      "description": "Classes only",
+      "type": "boolean"
+    },
+    "nicePropertyNames": {
+      "default": true,
+      "description": "Transform property names to be Pythonic",
+      "type": "boolean"
+    },
+    "pydanticBaseModel": {
+      "default": false,
+      "description": "Uses pydantic BaseModel",
+      "type": "boolean"
+    }
+  },
+  "typescript": {
+    "justTypes": {
+      "default": false,
+      "description": "Interfaces only",
+      "type": "boolean"
+    },
+    "nicePropertyNames": {
+      "default": false,
+      "description": "Transform property names to be JavaScripty",
+      "type": "boolean"
+    },
+    "explicitUnions": {
+      "default": false,
+      "description": "Explicitly name unions",
+      "type": "boolean"
+    },
+    "runtimeTypecheck": {
+      "default": true,
+      "description": "Verify JSON.parse results at runtime",
+      "type": "boolean"
+    },
+    "runtimeTypecheckIgnoreUnknownProperties": {
+      "default": false,
+      "description": "Ignore unknown properties when verifying at runtime",
+      "type": "boolean"
+    },
+    "acronymStyle": {
+      "default": "original",
+      "enum": ["original", "pascal", "camel", "lowerCase"],
+      "description": "Acronym naming style",
+      "type": "string"
+    },
+    "converters": {
+      "default": "top-level",
+      "enum": ["top-level", "all-objects"],
+      "description": "Which converters to generate",
+      "type": "string"
+    },
+    "rawType": {
+      "default": "json",
+      "enum": ["json", "any"],
+      "description": "Type of raw input",
+      "type": "string"
+    },
+    "preferUnions": {
+      "default": false,
+      "description": "Use union type instead of enum",
+      "type": "boolean"
+    },
+    "preferTypes": {
+      "default": false,
+      "description": "Use types instead of interfaces",
+      "type": "boolean"
+    },
+    "preferConstValues": {
+      "default": false,
+      "description": "Use string instead of enum for string enums with single value",
+      "type": "boolean"
+    },
+    "readonly": {
+      "default": false,
+      "description": "Use readonly type members",
+      "type": "boolean"
+    }
+  }
+}

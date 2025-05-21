@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
-import { getJavaOptions } from './options/javaOptions';
-import { getCSharpOptions } from './options/csharpOptions';
+import { getJavaOptions } from './lang/javaOptions';
+import { getCSharpOptions } from './lang/csharpOptions';
+import { getTypeScriptOptions } from './lang/typescriptOptions';
+import { getPythonOptions } from './lang/pythonOptions';
 
 // 지원하는 프로그래밍 언어 목록
 export const SUPPORTED_LANGUAGES = [
@@ -80,7 +82,7 @@ export function getQuicktypeLanguage(language: string): string {
 // 모델 파일 이름 및 확장자 결정
 export function getModelFileName(baseName: string, language: string): string {
   // 파일 이름 케이스 변환 (snake_case -> PascalCase)
-  const className = baseName.replace(/\.schema$/, '')
+  const className = baseName.replace(/\.(schema|data)$/, '')
     .split(/[-_]/)
     .map(part => part.charAt(0).toUpperCase() + part.slice(1))
     .join('');
@@ -134,12 +136,16 @@ export function getModelFileName(baseName: string, language: string): string {
 }
 
 // 언어별 옵션을 가져오는 함수
-export async function getLanguageSpecificOptions(language: string): Promise<{ [key: string]: string }> {
+export async function getLanguageSpecificOptions(language: string, filePath?: string): Promise<{ [key: string]: string }> {
   switch (language) {
     case 'Java':
-      return await getJavaOptions();
+      return await getJavaOptions(filePath);
     case 'C#':
-      return await getCSharpOptions();
+      return await getCSharpOptions(filePath);
+    case 'TypeScript':
+      return await getTypeScriptOptions();
+    case 'Python':
+      return await getPythonOptions();
     // 다른 언어에 대한 옵션 추가 가능
     default:
       return {};
