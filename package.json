@@ -2,7 +2,7 @@
   "name": "json-model-generator",
   "displayName": "JSON Model Generator",
   "description": "Generate model/entity classes from JSON schema files",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "publisher": "JangJongWoo",
   "icon": "images/icon.png",
   "engines": {
@@ -25,7 +25,12 @@
   "files": [
     "quicktype.settings.json",
     "dist/**/*",
-    "src/quicktype.settings.json"
+    "src/quicktype.settings.json",
+    "images/icon.png",
+    "README.md",
+    "CHANGELOG.md",
+    "DEVELOPMENT.md",
+    "LICENSE.md"
   ],
   "contributes": {
     "commands": [
